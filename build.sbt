@@ -6,7 +6,7 @@ name := "Typed Map"
 
 description := "Utility package providing a Map with typed keys for type-safe sotrage and retrievals without casts"
 
-scalaVersion := "2.13.12"
+scalaVersion := "2.12.18"
 
 licenses := Seq("MIT" -> url("https://github.com/NovaMage/typed-map/blob/main/LICENSE.txt"))
 
@@ -23,8 +23,8 @@ scalacOptions ++= Seq(
   "-unchecked",
   "-explaintypes",
   "-Xlint",
-  "-Wunused",
-  "-Wdead-code",
+  "-Ywarn-unused",
+  "-Ywarn-dead-code",
   "-Werror",
 )
 
@@ -34,7 +34,7 @@ inThisBuild(
   List(
     semanticdbEnabled          := true,                        // enable SemanticDB
     semanticdbVersion          := scalafixSemanticdb.revision, // only required for Scala 2.x
-    scalafixScalaBinaryVersion := "2.13"
+    scalafixScalaBinaryVersion := "2.12"
   )
 )
 
