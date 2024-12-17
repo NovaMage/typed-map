@@ -4,27 +4,22 @@ organization := "com.github.novamage"
 
 name := "Typed Map"
 
-description := "Utility package providing a Map with typed keys for type-safe sotrage and retrievals without casts"
+description := "Utility package providing a Map with typed keys for type-safe storage and retrievals without casts"
 
-scalaVersion := "2.13.12"
+scalaVersion := "3.3.4"
 
 licenses := Seq("MIT" -> url("https://github.com/NovaMage/typed-map/blob/main/LICENSE.txt"))
 
 homepage := Some(url("https://github.com/NovaMage/typed-map"))
 
-javacOptions := Seq("-source", "1.8", "-target", "1.8")
-
 scalacOptions ++= Seq(
-  "-Xsource:3",
-  "-deprecation",
+  "--explain-types",
+  "--deprecation",
   "-encoding",
   "UTF-8",
   "-feature",
   "-unchecked",
-  "-explaintypes",
-  "-Xlint",
-  "-Wunused",
-  "-Wdead-code",
+  "-Wunused:all",
   "-Werror",
 )
 
@@ -32,9 +27,7 @@ scalafixOnCompile := true
 
 inThisBuild(
   List(
-    semanticdbEnabled          := true,                        // enable SemanticDB
-    semanticdbVersion          := scalafixSemanticdb.revision, // only required for Scala 2.x
-    scalafixScalaBinaryVersion := "2.13"
+    semanticdbEnabled := true, // enable SemanticDB
   )
 )
 
@@ -82,9 +75,9 @@ exportJars := true
 
 Test / parallelExecution := false
 
-libraryDependencies += "org.scalatest"     %% "scalatest"         % "3.2.16"   % Test
-libraryDependencies += "org.scalatest"     %% "scalatest-funspec" % "3.2.16"   % "test"
-libraryDependencies += "org.scalatestplus" %% "mockito-4-11"      % "3.2.16.0" % "test"
+libraryDependencies += "org.scalatest"     %% "scalatest"         % "3.2.19"   % Test
+libraryDependencies += "org.scalatest"     %% "scalatest-funspec" % "3.2.19"   % "test"
+libraryDependencies += "org.scalatestplus" %% "mockito-4-11"      % "3.2.18.0" % "test"
 
 pomIncludeRepository := { _ => false }
 
