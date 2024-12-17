@@ -1,5 +1,7 @@
 package com.github.novamage.typedmap
 
+import scala.annotation.targetName
+
 /** Utility class that allows storing and retrieving values in a map-like interface with the
   * added safety that values must match the type of the [[com.github.novamage.typedmap.TypedKey]] they are associated with,
   * thus avoiding casting errors.
@@ -11,6 +13,7 @@ trait TypedMap {
     * @param kv The entry to add
     * @tparam A The type of the value
     */
+  @targetName("addEntry")
   def + [A](kv: TypedEntry[A]): TypedMap
 
   /** Returns a new [[com.github.novamage.typedmap.TypedMap]] with the specified key and its value removed
@@ -18,6 +21,7 @@ trait TypedMap {
     * @param key The key of the entry to remove
     * @tparam A The type of the value
     */
+  @targetName("removeEntry")
   def - [A](key: TypedKey[A]): TypedMap
 
   /** Returns the value associated with the specified key
@@ -39,7 +43,7 @@ trait TypedMap {
 
   /** Returns a new [[com.github.novamage.typedmap.TypedMap]] with the entries of this map and the entries of the passed in map
     *
-    * Any entries existing in both maps will be overwritten by the entries in the passed in map
+    * Any entries existing in both maps will be overwritten by the entries in the argument map
     *
     * @param another The map to merge with
     */
@@ -49,8 +53,10 @@ trait TypedMap {
 
 private class DefaultTypedMap(wrapped: Map[Any, Any]) extends TypedMap {
 
+  @targetName("addEntry")
   def + [A](entry: TypedEntry[A]): DefaultTypedMap = new DefaultTypedMap(wrapped.+((entry.key, entry.value)))
 
+  @targetName("removeEntry")
   def - [A](key: TypedKey[A]): DefaultTypedMap = new DefaultTypedMap(wrapped.-(key))
 
   def apply[A](key: TypedKey[A]): A = wrapped(key).asInstanceOf[A]
@@ -70,6 +76,7 @@ private class DefaultTypedMap(wrapped: Map[Any, Any]) extends TypedMap {
 }
 
 /** Factory for [[TypedMap]] instances */
+//noinspection ScalaWeakerAccess
 object TypedMap {
 
   /** Returns an empty [[com.github.novamage.typedmap.TypedMap]] */
