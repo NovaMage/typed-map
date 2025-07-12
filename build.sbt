@@ -1,5 +1,7 @@
 import sbtrelease.ReleaseStateTransformations.*
 
+import java.time.Instant
+
 organization := "com.github.novamage"
 
 name := "Typed Map"
@@ -57,12 +59,11 @@ publishLocalConfiguration := publishLocalConfiguration.value.withOverwrite(true)
 
 publishConfiguration := publishConfiguration.value.withOverwrite(false)
 
-publishTo := {
-  val nexus = "https://oss.sonatype.org/"
-  if (isSnapshot.value)
-    Some("snapshots" at nexus + "content/repositories/snapshots")
-  else
-    Some("releases" at nexus + "service/local/staging/deploy/maven2")
+ThisBuild / publishTo := {
+  if (isSnapshot.value) {
+    val timestamp = Instant.now().toEpochMilli
+    Some("Artifactory Realm" at s"https://magaran.jfrog.io/artifactory/magaran-sbt-dev;build.timestamp=$timestamp")
+  } else Some("Artifactory Realm" at "https://magaran.jfrog.io/artifactory/magaran-sbt-release")
 }
 
 Test / test := {
@@ -94,6 +95,5 @@ releaseProcess := Seq[ReleaseStep](
   publishArtifacts,
   setNextVersion,
   commitNextVersion,
-  releaseStepCommand("sonatypeReleaseAll"),
   pushChanges
 )
