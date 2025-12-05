@@ -8,7 +8,7 @@ name := "Typed Map"
 
 description := "Utility package providing a Map with typed keys for type-safe storage and retrievals without casts"
 
-scalaVersion := "3.3.4"
+scalaVersion := "3.7.4"
 
 licenses := Seq("MIT" -> url("https://github.com/NovaMage/typed-map/blob/main/LICENSE.txt"))
 
