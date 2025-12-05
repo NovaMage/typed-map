@@ -82,7 +82,7 @@ libraryDependencies += "org.scalatestplus" %% "mockito-4-11"      % "3.2.18.0" %
 
 pomIncludeRepository := { _ => false }
 
-releasePublishArtifactsAction := PgpKeys.publishSigned.value
+releasePublishArtifactsAction := publish.value
 
 releaseProcess := Seq[ReleaseStep](
   checkSnapshotDependencies,
